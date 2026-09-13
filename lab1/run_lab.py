@@ -6,7 +6,7 @@ from entropy_lab import (
     symbol_frequencies, bigram_frequencies, top_n,
     h1, h2_per_symbol,
     make_sequence_B, make_sequence_V, make_sequence_G, make_sequence_D,
-    guess_experiment, redundancy,
+    redundancy,
 )
 
 CORPUS_PATH = "corpus.txt"
@@ -40,6 +40,7 @@ for label, text, alphabet in [
     section["alphabet_size"] = len(alphabet)
     results[label] = section
 
+# послідовності А, Б, В
 seq_len = min(20000, len(text_no_spaces))
 A = text_no_spaces[:seq_len]
 B = make_sequence_B("о", seq_len)
@@ -52,6 +53,7 @@ results["section3"] = {
     "H1_V": h1(V),
 }
 
+# Розділ 5 звіту: послідовності Г, Д
 gd_len = min(20000, len(text_no_spaces))
 G = make_sequence_G(text_no_spaces, gd_len)
 top2 = [s for s, _ in Counter(text_no_spaces).most_common(2)]
@@ -67,20 +69,12 @@ results["section4"] = {
     "H2_nonoverlap_D": h2_per_symbol(D, overlapping=False),
 }
 
-results["section5"] = {}
-for n in (10, 20, 30):
-    r = guess_experiment(text_no_spaces, n=n, trials=60, alphabet=RUSSIAN_ALPHABET, seed=n)
-    results["section5"][f"H_{n}"] = r
-
+# Розділ 7 звіту: надлишковість (H1, H2)
 m_no_space = len(RUSSIAN_ALPHABET)
 results["section6"] = {
     "R_H1_no_space": redundancy(results["no_spaces"]["H1"], m_no_space),
     "R_H2_no_space": redundancy(results["no_spaces"]["H2_overlap"], m_no_space),
 }
-for n in (10, 20, 30):
-    r = results["section5"][f"H_{n}"]
-    if r:
-        results["section6"][f"R_H{n}_direct"] = redundancy(r["h_direct_estimate"], m_no_space)
 
 with open("results.json", "w", encoding="utf-8") as f:
     json.dump(results, f, ensure_ascii=False, indent=2)
