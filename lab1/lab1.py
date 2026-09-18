@@ -59,9 +59,7 @@ def analyze(text, tag, m):
         "H2 (без перетину)": entropy(bi_non) / 2,
     }
 
-    print("\n" + "=" * 60)
     print(f"ТЕКСТ {tag.upper()}")
-    print("=" * 60)
     print(f"Символів: {len(text)}, різних: {len(chars)}, m = {m}, H0 = {math.log2(m):.6f}")
     for name, value in res.items():
         print(f"{name} = {value:.6f}  R = {redundancy(value, m):.6f}")
@@ -86,9 +84,7 @@ def section3(text_no_spaces):
         "Б (один символ)": "а" * n,
         "В (рівноймовірна)": "".join(random.choices(ALPHABET, k=n)),
     }
-    print("\n" + "=" * 60)
     print("3. ВПЛИВ РОЗПОДІЛУ СИМВОЛІВ")
-    print("=" * 60)
     print(f"Довжина: {n}, log2({len(ALPHABET)}) = {math.log2(len(ALPHABET)):.6f}")
     for name, seq in sequences.items():
         print(f"{name}: H1 = {h1(seq):.6f}, H2 (перетин) = {h2(seq, 1):.6f}")
@@ -99,9 +95,7 @@ def section4():
     chars = list(periodic)
     random.shuffle(chars)
     sequences = {"Г (випадкова)": "".join(chars), "Д (періодична)": periodic}
-    print("\n" + "=" * 60)
     print("4. ЗАЛЕЖНОСТІ МІЖ СИМВОЛАМИ")
-    print("=" * 60)
     for name, seq in sequences.items():
         print(f"\n{name}: частоти символів {dict(Counter(seq))}")
         print(f"  біграми (перетин): {dict(ngrams(seq, 2, 1))}")
@@ -112,9 +106,7 @@ def section4():
 
 
 def section6(res_spaces, res_no_spaces):
-    print("\n" + "=" * 60)
     print("6. НАДЛИШКОВІСТЬ R = 1 - H / H0")
-    print("=" * 60)
     cases = (
         ("з пробілами", res_spaces, len(ALPHABET) + 1),
         ("без пробілів", res_no_spaces, len(ALPHABET)),
@@ -138,7 +130,6 @@ def main():
     section3(text_no_spaces)
     section4()
     section6(res_spaces, res_no_spaces)
-
 
 if __name__ == "__main__":
     main()
