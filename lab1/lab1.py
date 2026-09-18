@@ -1,10 +1,11 @@
-import csv
 import math
 import random
 import re
 from collections import Counter
+from pathlib import Path
 
-TEXT_FILE = "text.txt"
+BASE = Path(__file__).parent
+TEXT_FILE = BASE / "text.txt"
 ALPHABET = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
 SEQ_LEN = 100000
 SEED = 42
@@ -48,15 +49,6 @@ def print_top(counter, k=5):
         print(f"  {show(item):<4} {c:>9}  {c / total:.6f}")
 
 
-def save_csv(path, counter):
-    total = sum(counter.values())
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.writer(f)
-        writer.writerow(["item", "count", "frequency"])
-        for item, c in counter.most_common():
-            writer.writerow([show(item), c, c / total])
-
-
 def analyze(text, tag, m):
     chars = Counter(text)
     bi_over = ngrams(text, 2, 1)
@@ -84,10 +76,6 @@ def analyze(text, tag, m):
     print("\nТоп-5 біграм (без перетину):")
     print_top(bi_non)
 
-    slug = tag.replace(" ", "_")
-    save_csv(f"freq_chars_{slug}.csv", chars)
-    save_csv(f"freq_bigrams_overlap_{slug}.csv", bi_over)
-    save_csv(f"freq_bigrams_nonoverlap_{slug}.csv", bi_non)
     return res
 
 
