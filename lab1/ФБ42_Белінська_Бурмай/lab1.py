@@ -9,7 +9,7 @@ TEXT_FILE = BASE / "text.txt"
 ALPHABET = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
 SEQ_LEN = 100000
 SEED = 42
-COOLPINK = {10: None, 20: None, 30: None}
+COOLPINK = {10: 2.581119, 20: 2.511500, 30: 1.929283}
 
 
 def load_text(path):
