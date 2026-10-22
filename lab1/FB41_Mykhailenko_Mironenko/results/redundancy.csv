@@ -1,0 +1,7 @@
+﻿text,model,entropy,redundancy
+with_spaces,H1,4.37773679,0.13950491
+with_spaces,H2_overlap,3.96745079,0.22015140
+with_spaces,H2_nonoverlap,3.96770311,0.22010180
+without_spaces,H1,4.46673405,0.11451525
+without_spaces,H2_overlap,4.14725601,0.17784854
+without_spaces,H2_nonoverlap,4.14751843,0.17779651
